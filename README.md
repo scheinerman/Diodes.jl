@@ -110,8 +110,10 @@ are the choices:
 * `:one` -- fill with 1s
 * `:unif` -- fill with uniform [0,1] values
 * `:exp` -- fill with exp(1) values
-* `:user` -- then provide a fourth argument specifying a function to
-produce the random values. For example:
+* `:user` -- fill with random values produced by a user supplied function
+(as a fourth argument).
+
+For example:
 ```julia
 julia> f() = 10*rand()
 f (generic function with 1 method)

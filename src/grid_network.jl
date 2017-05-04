@@ -13,15 +13,15 @@ fill_exp()=-log(rand())
 
 """
 `grid_network(n,m,fill=:one)` creates an `n*m`-by-`n*m` conductance matrix
-corresponding to an `n`-by-`m` grid. 
+corresponding to an `n`-by-`m` grid.
 
 The `fill` parameter tells how the nonzero entries are to be filled. Here
 are the choices:
 * `:one` -- fill with 1s
 * `:unif` -- fill with uniform [0,1] values
 * `:exp` -- fill with exp(1) values
-* `:user` -- then provide a fourth argument specifying a function to
-produce the random values.
+* `:user` -- tfill with random values produced by a user supplied function
+(as a fourth argument).
 """
 function grid_network(n::Int, m::Int, fill::Symbol=:one, func::Function=fill_one)
   nodes = [ (i,j) for i=1:n for j=1:m ]

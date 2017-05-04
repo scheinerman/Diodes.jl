@@ -92,6 +92,10 @@ the conductance between nodes `i` and `j` is either `C[i,j]` if `x[i]>x[j]` or `
 for this undirected network and use those values to replace `x`.
 The process repeats until there are no changes (or we repeat).
 
+## Example
+
+Documentation for `grid_network` to be inserted here.
+
 #### Caveats
 
 The point of this research problem is I don't know if this

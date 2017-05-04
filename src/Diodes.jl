@@ -167,4 +167,6 @@ function d_resistance(C::Matrix,s::Int,t::Int,verbose::Bool=true)
   return 1/dot(C[:,t],v)
 end
 
+include("grid_network.jl")
+
 end  # end of module Diodes

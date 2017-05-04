@@ -1,2 +1,5 @@
-# Diodes.jl
-Julia code for resistor-diode networks
+# Diodes
+
+Julia code for resistor-diode networks.
+
+More to come here.

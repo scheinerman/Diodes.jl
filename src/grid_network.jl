@@ -12,8 +12,8 @@ fill_exp()=-log(rand())
 
 
 """
-`grid_network(n,m,fill=:one)` create an `n*m`-by-`n*m` conductance matrix
-corresponding to an `n`-by-`m` grid. At present, this is a `0,1`-matrix.
+`grid_network(n,m,fill=:one)` creates an `n*m`-by-`n*m` conductance matrix
+corresponding to an `n`-by-`m` grid. 
 
 The `fill` parameter tells how the nonzero entries are to be filled. Here
 are the choices:

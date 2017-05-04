@@ -102,4 +102,29 @@ or why it's incredibly fast.
 
 ## Example
 
-Documentation for `grid_network` to be inserted here.
+`grid_network(n,m,fill=:one)` creates an `n*m`-by-`n*m` conductance matrix
+corresponding to an `n`-by-`m` grid.
+
+The `fill` parameter tells how the nonzero entries are to be filled. Here
+are the choices:
+* `:one` -- fill with 1s
+* `:unif` -- fill with uniform [0,1] values
+* `:exp` -- fill with exp(1) values
+* `:user` -- then provide a fourth argument specifying a function to
+produce the random values. For example:
+```julia
+julia> f() = 10*rand()
+f (generic function with 1 method)
+
+jjulia> C = grid_network(3,3,:user,f)
+9×9 Array{Float64,2}:
+ 0.0      4.31794  0.0       3.35004  0.0      0.0      0.0      0.0        0.0    
+ 1.05755  0.0      9.81319   0.0      8.47992  0.0      0.0      0.0        0.0    
+ 0.0      8.94584  0.0       0.0      0.0      7.9718   0.0      0.0        0.0    
+ 5.13998  0.0      0.0       0.0      3.80014  0.0      4.67704  0.0        0.0    
+ 0.0      4.13624  0.0       5.58759  0.0      7.77399  0.0      4.36219    0.0    
+ 0.0      0.0      0.298659  0.0      2.23497  0.0      0.0      0.0        2.64091
+ 0.0      0.0      0.0       4.11197  0.0      0.0      0.0      0.0265038  0.0    
+ 0.0      0.0      0.0       0.0      4.48704  0.0      7.96634  0.0        5.62822
+ 0.0      0.0      0.0       0.0      0.0      8.78592  0.0      0.677026   0.0    
+```

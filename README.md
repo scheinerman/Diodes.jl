@@ -88,16 +88,18 @@ internal voltages and net resistance in a resistor-diode network.
 We are given a conductance matrix `C`, source node `s`, and
 terminal node `t`. We begin by guessing the voltages at all nodes
 in a vector `x`. We then make an undirected network in which
-the conductance between nodes `i` and `j` is either `C[i,j]` if `x[i]>x[j]` or `C[j,i]` otherwise. We then find the voltages
+the conductance between nodes `i` and `j` is either `C[i,j]` if `x[i]>x[j]`
+or `C[j,i]` otherwise. We then find the voltages
 for this undirected network and use those values to replace `x`.
 The process repeats until there are no changes (or we repeat).
-
-## Example
-
-Documentation for `grid_network` to be inserted here.
 
 #### Caveats
 
 The point of this research problem is I don't know if this
 algorithm is correct, if it ever fails to reach a fixed point,
-or why it's incredibly fast. 
+or why it's incredibly fast.
+
+
+## Example
+
+Documentation for `grid_network` to be inserted here.

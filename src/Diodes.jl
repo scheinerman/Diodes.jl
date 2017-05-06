@@ -1,6 +1,6 @@
 module Diodes
 
-export find_voltages, d_find_voltages, resistance, d_resistance
+export find_voltages, d_find_voltages, resistance, d_resistance, energy
 
 """
 `find_voltages(C,s,t)`: Given a symmetric, hollow, nonnegative conductance
@@ -13,12 +13,14 @@ function find_voltages{T<:Real}(C::Matrix{T}, s::Int, t::Int)::Vector{T}
   @assert n==c "Matrix must be square"
   @assert all(C.>=0) "Matrix entries must be nonnegative"
   @assert C==C' "Matrix must be symmetric"
-  @assert trace(C)==0 "Matrix must be hollow"
   # check s,t
   @assert (1<=s<=n)&&(1<=t<=n) "Source and sink must be between 1 and $n"
   @assert s!=t "Source and sink must be different"
 
   A = copy(C)
+  for k=1:n
+    A[k,k]=0
+  end
   d = sum(A,1)
   for j=1:n
     A[j,j] = - d[j]
@@ -147,7 +149,7 @@ function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=true)
     end
     push!(elist,en)
   end
-  
+
   return v
 end
 

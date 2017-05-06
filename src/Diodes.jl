@@ -1,6 +1,7 @@
 module Diodes
 
-export find_voltages, d_find_voltages, resistance, d_resistance, energy
+export find_voltages, d_find_voltages, resistance, d_resistance
+export energy, d_energy
 
 """
 `find_voltages(C,s,t)`: Given a symmetric, hollow, nonnegative conductance
@@ -100,6 +101,29 @@ function energy(C::Matrix,v::Vector)
   end
   return total
 end
+
+"""
+`d_energy(C,x)` computes the derivative of `energy` for gradient
+consideration.
+"""
+function d_energy(C::Matrix, x::Vector)
+  y = 0*x
+  n = length(y)
+  for i=1:n
+    for j=1:n
+      if x[i]>x[j]
+        y[i] += 2*C[i,j]*(x[i]-x[j])
+      else
+        y[i] += 2*C[j,i]*(x[i]-x[j])
+      end
+    end
+  end
+  return y
+end
+
+
+
+
 
 """
 `d_find_voltages(C,s,t,v0,verbose)`: Given a conductance matrix, source/sink

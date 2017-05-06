@@ -1,7 +1,7 @@
 module Diodes
 
 export find_voltages, d_find_voltages, resistance, d_resistance
-export energy, d_energy
+export energy, d_energy, voltage_check
 
 """
 `find_voltages(C,s,t)`: Given a symmetric, hollow, nonnegative conductance
@@ -192,6 +192,50 @@ function d_resistance(C::Matrix,s::Int,t::Int,verbose::Bool=true)
   v = d_find_voltages(C,s,t,verbose)
   return 1/dot(C[:,t],v)
 end
+
+
+"""
+`voltage_check(C,s,t,v)` check if the vector `v` gives good values for
+the internal voltage of the resistor-diode network `C` with source
+`s` and sink `t`. The smaller this value, the better.
+"""
+function voltage_check(C::Matrix, s::Int, t::Int, x::Vector)
+  A = copy(C)
+  n,c = size(A)
+  for i=1:n
+    for j=1:n
+      if x[i]>x[j]
+        A[i,j]=C[i,j]
+      else
+        A[i,j]=C[j,i]
+      end
+    end
+  end
+  for i=1:n
+    A[i,i]=0
+  end
+
+  d = sum(A,1)
+  for j=1:n
+    A[j,j] = - d[j]
+  end
+
+  flux = A*x
+
+  if s>t
+    s,t = t,s
+  end
+  deleteat!(flux,t)
+  deleteat!(flux,s)
+
+  return norm(flux)
+
+end
+
+
+
+
+
 
 include("grid_network.jl")
 

@@ -121,17 +121,13 @@ function d_energy(C::Matrix, x::Vector)
   return y
 end
 
-
-
-
-
 """
 `d_find_voltages(C,s,t,v0,verbose)`: Given a conductance matrix, source/sink
 pair, initial voltage vector, iteratively compute the correct voltage
 vector for this resistor-diode circuit. If `v0` is ommited, a random `v0`
 is provided.
 """
-function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=true)
+function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=false)
   v = copy(v0)
   v[s]=1
   v[t]=0
@@ -177,7 +173,7 @@ function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=true)
   return v
 end
 
-function d_find_voltages(C::Matrix,s::Int,t::Int,verbose::Bool=true)
+function d_find_voltages(C::Matrix,s::Int,t::Int,verbose::Bool=false)
   n,r = size(C)
   return d_find_voltages(C,s,t,rand(n),verbose)
 end
@@ -188,7 +184,7 @@ end
 node `s` to node `t` in a resistor-diode network specified by the
 conductance matrix `C`.
 """
-function d_resistance(C::Matrix,s::Int,t::Int,verbose::Bool=true)
+function d_resistance(C::Matrix,s::Int,t::Int,verbose::Bool=false)
   v = d_find_voltages(C,s,t,verbose)
   return 1/dot(C[:,t],v)
 end
@@ -232,11 +228,7 @@ function voltage_check(C::Matrix, s::Int, t::Int, x::Vector)
 
 end
 
-
-
-
-
-
+include("diode-opt.jl")
 include("grid_network.jl")
 
 end  # end of module Diodes

@@ -21,13 +21,18 @@ There are two primary functions for the user: `d_find_voltages` and
 
 * `d_resistance(C,s,t)`: Given a conductance matrix `C`, source node
 `s`, and terminal node `t`, compute the effective resistance from
-`s` to `t`. To suppress some noisy output during the calculation,
-call `d_resistance(C,s,t,false)`. **Note**: The returned result is a
+`s` to `t`. To include some noisy output during the calculation,
+call `d_resistance(C,s,t,true)`. **Note**: The returned result is a
 *resistance* (ohms); invert it to find the net conductance (mhos).
 * `d_find_voltages(C,s,t)`: This is the workhorse of the `d_resistance`
 function. It computes the internal voltages of the network assuming that
-`s` is at +1 volts and `t` is at 0 volts. To suppress some noisy
-output during the calculation, call `d_find_voltages(C,s,t,false)`.
+`s` is at +1 volts and `t` is at 0 volts. To include some noisy
+output during the calculation, call `d_find_voltages(C,s,t,true)`.
+
+### Alternative versions
+
+The functions `d_resistance_opt` and `d_find_voltages_opt` work
+the same as above, but use a gradient descent algorithm.
 
 #### Example
 
@@ -43,16 +48,16 @@ julia> C
  0.0  1.0  0.0  2.0
  2.0  0.0  1.0  0.0
 
-julia> d_resistance(C,1,4)
+julia> d_resistance(C,1,4,true)
 Iteration 0	Energy = 4.632507871307487
 Iteration 1	Energy = 3.5
 0.6000000000000001
 
-julia> d_resistance(C,4,1)
+julia> d_resistance(C,4,1,true)
 Iteration 0	Energy = 4.697008744059282
 0.42857142857142855
 
-julia> d_find_voltages(C,1,4)
+julia> d_find_voltages(C,1,4,true)
 Iteration 0	Energy = 4.045782752087957
 4-element Array{Float64,1}:
  1.0     
@@ -60,7 +65,7 @@ Iteration 0	Energy = 4.045782752087957
  0.333333
  0.0     
 
-julia> d_find_voltages(C,4,1)
+julia> d_find_voltages(C,4,1,true)
 Iteration 0	Energy = 5.9655059874692355
 Iteration 1	Energy = 4.720000000000001
 4-element Array{Float64,1}:
@@ -82,6 +87,8 @@ must be nonnegative, symmetric, and hollow (trace 0).
 
 ## Algorithm
 
+### Combinatorial
+
 Here is the gist of the iterative algorithm we use to compute
 internal voltages and net resistance in a resistor-diode network.
 
@@ -99,6 +106,10 @@ The point of this research problem is I don't know if this
 algorithm is correct, if it ever fails to reach a fixed point,
 or why it's incredibly fast.
 
+## Gradient descent
+
+The `_opt` versions of the main functions use Julia's `Optim`
+package to find a minimum energy solution.
 
 ## Example
 

@@ -33,7 +33,7 @@ function d_find_voltages_opt(C::Matrix, s::Int, t::Int, x0::Vector)
   y = result.minimizer
   y[s]=1
   y[t]=0
-  println("Energy = $(energy(C,y))")
+  # println("Energy = $(energy(C,y))")
   return y
 end
 

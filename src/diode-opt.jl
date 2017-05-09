@@ -27,7 +27,7 @@ function d_find_voltages_opt(C::Matrix, s::Int, t::Int, x0::Vector)
   f(x) = min_this(C,s,t,x)
   g(x,storage)= grad_this(C,s,t,x,storage)
 
-  result = optimize(f,g,x0)
+  result = optimize(f,g,x0,BFGS())
 
   #Optim.Options(show_trace = true,iterations=100_000))
   y = result.minimizer

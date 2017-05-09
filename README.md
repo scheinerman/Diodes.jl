@@ -111,7 +111,7 @@ or why it's incredibly fast.
 The `_opt` versions of the main functions use Julia's `Optim`
 package to find a minimum energy solution.
 
-## Example
+## Examples
 
 `grid_network(n,m,fill=:one)` creates an `n*m`-by-`n*m` conductance matrix
 corresponding to an `n`-by-`m` grid.
@@ -141,3 +141,6 @@ jjulia> C = grid_network(3,3,:user,f)
  0.0      0.0      0.0       0.0      4.48704  0.0      7.96634  0.0        5.62822
  0.0      0.0      0.0       0.0      0.0      8.78592  0.0      0.677026   0.0    
 ```
+
+Similarly, `cube_network(d,fill)` creates a `2^d` node hypercube
+network filled in a way akin to `grid_network` (same options for `fill`).

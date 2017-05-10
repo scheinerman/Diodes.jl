@@ -1,4 +1,4 @@
-export grid_network, cube_network
+export grid_network, cube_network, graph_circuit
 
 
 """
@@ -91,3 +91,48 @@ function cube_network(d::Int, fill::Symbol=:one, func::Function=fill_one)
   A = [ A1  D1; D2 A2]
   return A
 end
+
+
+using SimpleGraphs
+
+function rand_fill!(A::Matrix, f::Function)
+  r,c = size(A)
+  for i=1:r
+    for j=1:c
+      if A[i,j] != 0
+        A[i,j] = f()
+      end
+    end
+  end
+  nothing
+end
+
+"""
+`graph_circuit(G,fill=:one)` takes a `SimpleGraph` or `SimpleDigraph`
+and gives a random conductance to each edge based on the `fill` method.
+If the graph is undirected, the conductance assigned to an edge `uv`
+might be different than the conductance assigned to `vu`. Value for
+`fill` may be one of these symbols:
+* `:one` -- fill with 1s
+* `:unif` -- fill with uniform [0,1] values
+* `:exp` -- fill with exp(1) values
+* `:user` -- fill with random values produced by a user supplied function
+   (as a third argument).
+"""
+
+function graph_circuit(G, fill::Symbol=:one, func::Function=fill_one)
+    f = func
+    if fill == :one
+      f = fill_one
+    elseif fill == :exp
+      f = fill_exp
+    elseif fill == :unif
+      f = rand
+    end
+
+    A = Float64.(adjacency(G))
+    if fill != :one
+      rand_fill!(A,f)
+    end
+    return A
+  end

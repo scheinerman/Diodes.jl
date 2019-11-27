@@ -1,5 +1,7 @@
 module Diodes
 
+using LinearAlgebra
+
 export find_voltages, d_find_voltages, resistance, d_resistance
 export energy, d_energy, voltage_check
 
@@ -22,7 +24,7 @@ function find_voltages(C::Matrix{T}, s::Int, t::Int)::Vector{T} where T<:Real
   for k=1:n
     A[k,k]=0
   end
-  d = sum(A,1)
+  d = sum(A,dims=1)
   for j=1:n
     A[j,j] = - d[j]
   end

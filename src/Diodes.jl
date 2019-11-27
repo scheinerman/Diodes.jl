@@ -8,7 +8,7 @@ export energy, d_energy, voltage_check
 matrix `C`, and indices `s` and `t` find the voltages at all nodes in the
 resistor network.
 """
-function find_voltages{T<:Real}(C::Matrix{T}, s::Int, t::Int)::Vector{T}
+function find_voltages(C::Matrix{T}, s::Int, t::Int)::Vector{T} where T<:Real
   # check the matrix is legit
   n,c = size(C)
   @assert n==c "Matrix must be square"
@@ -43,7 +43,7 @@ end
 `resistance(C,s,t)`: Given a conductance matrix (as in `find_voltages`)
 and nodes `s` and `t`, find the effective resistance between the nodes.
 """
-function resistance{T<:Real}(C::Matrix{T}, s::Int, t::Int)::T
+function resistance(C::Matrix{T}, s::Int, t::Int)::T where T<:Real
   x = find_voltages(C,s,t)
   # compute current into `t`
   return 1/dot(C[t,:],x)

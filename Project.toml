@@ -1,0 +1,10 @@
+name = "Diodes"
+uuid = "9339af45-aa2c-5196-9f9a-d1a931951487"
+
+[deps]
+LinearAlgebra = "37e2e46d-f89d-539d-b4ee-838fcccc9c8e"
+Optim = "429524aa-4258-5aef-a3af-852621145aeb"
+SimpleGraphs = "55797a34-41de-5266-9ec1-32ac4eb504d3"
+
+[compat]
+julia = "≥ 1.0.0"

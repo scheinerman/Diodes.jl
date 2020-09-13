@@ -7,4 +7,5 @@ Optim = "429524aa-4258-5aef-a3af-852621145aeb"
 SimpleGraphs = "55797a34-41de-5266-9ec1-32ac4eb504d3"
 
 [compat]
-julia = "≥ 1.0.0"
+julia = "1"
+SimpleGraphs = "0"

@@ -52,11 +52,11 @@ function resistance(C::Matrix{T}, s::Int, t::Int)::T where T<:Real
 end
 
 """
-`simplify(C,v)`: Given a nonsymmetric conductance matrix and a voltage vector,
+`make_undirected(C,v)`: Given a nonsymmetric conductance matrix and a voltage vector,
 return a symmetric conductance matrix in which the
 conductance is selected following the voltage gradient.
 """
-function simplify(C::Matrix,v::Vector)
+function make_undirected(C::Matrix,v::Vector)
   n,c=size(C)
   CC = 0*C
   for i=1:n
@@ -80,7 +80,7 @@ end
 to find the voltages in a resistor-diode network.
 """
 function d_find_voltages_step(C::Matrix,s::Int,t::Int,v::Vector)
-  CC = simplify(C,v)
+  CC = make_undirected(C,v)
   w = find_voltages(CC,s,t)
 end
 

@@ -159,7 +159,7 @@ function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=false)
 
     # see if we've cycled
     if any(map(x->x==p,plist))
-      warn("Non-fixed-point cycle detected")
+      @warn("Non-fixed-point cycle detected")
       break
     end
 
@@ -167,7 +167,7 @@ function d_find_voltages(C::Matrix,s::Int,t::Int,v0::Vector,verbose::Bool=false)
 
     en = energy(C,v)
     if verbose && en > elist[end]
-      warn("Energy level increased!")
+      @warn("Energy level increased!")
     end
     push!(elist,en)
   end
